@@ -21,11 +21,8 @@ const Genres = ({ state, libraries }) => {
 
         let genreArray = [];
         Object.entries(state.source.genre).forEach((item) => {
-          console.log(39, item[1]);
           genreArray.push(item[1]);
         });
-
-        console.log(40, genreArray);
 
         genreArray.sort((a, b) => b.count - a.count);
 

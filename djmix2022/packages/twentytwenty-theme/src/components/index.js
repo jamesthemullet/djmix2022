@@ -21,7 +21,6 @@ import Pagination from "./pagination";
 const Theme = ({ state }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
-  console.log(1, data.route.startsWith("/genre/"));
   return (
     <>
       {/* Add global styles for the whole site, like body or a's or font-faces. 

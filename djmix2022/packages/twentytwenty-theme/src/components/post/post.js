@@ -13,6 +13,7 @@ import {
 import PostCategories from "./post-categories";
 import PostMeta from "./post-meta";
 import PostTags from "./post-tags";
+import Comments from "../comments";
 
 /**
  * The Post component that the TwentyTwenty theme uses for rendering any kind of
@@ -125,6 +126,7 @@ const Post = ({ state, actions, libraries }) => {
           </EntryContent>
           {/* If the post has tags, render it */}
           {post.tags && <PostTags tags={tags} />}
+          <Comments postId={post.id} />
         </PostInner>
       )}
     </PostArticle>

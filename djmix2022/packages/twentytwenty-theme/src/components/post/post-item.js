@@ -30,6 +30,7 @@ const PostItem = ({
 }) => {
   // Get all categories
   const allCategories = state.source.category;
+  console.log(10, state);
   /**
    * The item's categories is an array of each category id. So, we'll look up
    * the details of each category in allCategories.

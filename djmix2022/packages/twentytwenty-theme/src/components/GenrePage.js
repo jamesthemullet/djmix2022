@@ -20,8 +20,6 @@ const GenrePage = ({ state, libraries }) => {
           response,
         });
 
-        console.log(60, state.source.genre);
-
         // let genreArray = [];
         // Object.entries(state.source.genre).forEach((item) => {
         //   console.log(39, item[1]);
