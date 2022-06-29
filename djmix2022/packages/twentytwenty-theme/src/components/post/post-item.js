@@ -207,7 +207,7 @@ export const PostCaption = styled(SectionContainer)`
   }
 `;
 
-const PostLink = styled(Link)`
+export const PostLink = styled(Link)`
   color: #000000;
   text-decoration: none;
   display: inline-block;

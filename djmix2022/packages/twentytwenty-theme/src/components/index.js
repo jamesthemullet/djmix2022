@@ -52,7 +52,7 @@ const Theme = ({ state }) => {
               <SearchResults when={data.isSearch} />
               <Archive when={data.isArchive} />
               <LeagueTable when={data.route === "/league-of-mixes/"} />
-              <GenrePage when={data.route.startsWith("/genre/")} />
+              <GenrePage when={data.route.startsWith("/genre/")} data={data} />
               <Post when={data.isPostType} />
               <PageError when={data.isError} />
             </Switch>

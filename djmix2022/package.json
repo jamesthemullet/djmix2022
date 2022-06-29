@@ -23,6 +23,7 @@
     "@frontity/twentytwenty-theme": "./packages/twentytwenty-theme",
     "@frontity/wp-comments": "^1.0.0",
     "@frontity/wp-source": "^1.11.7",
+    "@frontity/yoast": "^2.1.1",
     "frontity": "^1.17.1"
   }
 }

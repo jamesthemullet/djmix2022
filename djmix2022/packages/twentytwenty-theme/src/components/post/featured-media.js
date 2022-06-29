@@ -36,7 +36,9 @@ const FeaturedMedia = ({ state, id, className }) => {
           alt={media.title.rendered}
           src={media.source_url}
           srcSet={srcset}
-          isHomePage={state.router.link === '/' || state.router.link.includes('/page/')}
+          isHomePage={
+            state.router.link === "/" || state.router.link.includes("/page/")
+          }
         />
       </SectionContainer>
     </Figure>
@@ -56,7 +58,9 @@ const Image = styled(Img)`
   height: auto;
   object-fit: cover;
   width: 100%;
-  ${({ isHomePage }) => isHomePage && `
+  ${({ isHomePage }) =>
+    isHomePage &&
+    `
     height: 250px;
   `};
 `;
