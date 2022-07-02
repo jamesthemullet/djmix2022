@@ -11,7 +11,7 @@ import SectionContainer from "../styles/section-container";
  * - `className`: Required in order to wrap the component with `styled()`.
  * @returns React element.
  */
-const FeaturedMedia = ({ state, id, className }) => {
+const FeaturedMedia = ({ state, id, className, isHomePage }) => {
   const media = state.source.attachment[id];
 
   if (!media) return null;
@@ -31,14 +31,16 @@ const FeaturedMedia = ({ state, id, className }) => {
 
   return (
     <Figure className={className}>
-      <SectionContainer size="medium">
+      <SectionContainer
+        size="medium"
+        isHomePage={
+          state.router.link === "/" || state.router.link.includes("/page/")
+        }
+      >
         <Image
           alt={media.title.rendered}
           src={media.source_url}
           srcSet={srcset}
-          isHomePage={
-            state.router.link === "/" || state.router.link.includes("/page/")
-          }
         />
       </SectionContainer>
     </Figure>
@@ -58,9 +60,4 @@ const Image = styled(Img)`
   height: auto;
   object-fit: cover;
   width: 100%;
-  ${({ isHomePage }) =>
-    isHomePage &&
-    `
-    height: 250px;
-  `};
 `;

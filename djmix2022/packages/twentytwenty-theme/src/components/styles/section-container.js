@@ -17,6 +17,12 @@ const SectionContainer = styled.div`
   @media (min-width: 700px) {
     width: calc(100%);
   }
+  ${({ isHomePage }) =>
+    isHomePage &&
+    `img {
+      height: 250px;
+    }
+  `};
 `;
 
 export default SectionContainer;
