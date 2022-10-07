@@ -13,6 +13,7 @@ import SectionContainer from "../styles/section-container";
  */
 const FeaturedMedia = ({ state, id, className, isHomePage }) => {
   const media = state.source.attachment[id];
+  const homePageSizes = isHomePage ? "(max-width: 1024px) 100vw, 400px" : "";
 
   if (!media) return null;
 
@@ -41,6 +42,7 @@ const FeaturedMedia = ({ state, id, className, isHomePage }) => {
           alt={media.title.rendered}
           src={media.source_url}
           srcSet={srcset}
+          sizes={homePageSizes}
         />
       </SectionContainer>
     </Figure>

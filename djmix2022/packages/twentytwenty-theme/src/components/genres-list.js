@@ -56,7 +56,7 @@ const Genre = styled.div`
   text-align: left;
 `;
 
-const GenreHeading = styled.h4`
+const GenreHeading = styled.h2`
   line-height: 1.5;
   margin: 0 0 1em 0;
   font-size: inherit;
