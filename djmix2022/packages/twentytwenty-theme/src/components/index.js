@@ -48,13 +48,13 @@ const Theme = ({ state }) => {
           on the type of URL we are in. */}
           <Main id="main" noFlex={data.isSearch}>
             <Switch>
-              <Loading when={data.isFetching} />
               <SearchResults when={data.isSearch} />
               <Archive when={data.isArchive} />
               <LeagueTable when={data.route === "/league-of-mixes/"} />
               <GenrePage when={data.route.startsWith("/genre/")} data={data} />
               <Post when={data.isPostType} />
               <PageError when={data.isError} />
+              <Loading when={data.isFetching} />
             </Switch>
           </Main>
         </Wrapper>

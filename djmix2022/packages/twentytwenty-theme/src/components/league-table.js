@@ -36,12 +36,18 @@ const LeagueOfMixes = ({ state, libraries }) => {
             },
           });
 
+          // console.log(50, await response.json());
+
           const pages = libraries.source.getTotalPages(response);
+
+          console.log(51, pages);
 
           await libraries.source.populate({
             state,
             response,
           });
+
+          console.log(51.1);
 
           const requests = [];
 
@@ -58,6 +64,8 @@ const LeagueOfMixes = ({ state, libraries }) => {
           }
 
           const responses = await Promise.all(requests);
+
+          console.log(53, responses);
 
           await Promise.all(
             responses.map((response) =>

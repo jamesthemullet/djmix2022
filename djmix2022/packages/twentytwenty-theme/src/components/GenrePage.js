@@ -9,47 +9,77 @@ import {
   Genre,
 } from "./post/post-item";
 import FeaturedMedia from "./post/featured-media";
-import PostCategories from "./post/post-categories";
 
 const GenrePage = ({ state, libraries, data }) => {
-  let [id, setid] = useState("");
   const [genres, setGenres] = useState([]);
-  useEffect(() => {
-    setid(data.id);
-  });
+
   useEffect(() => {
     (async () => {
+      if (!data.id || data.id === "") {
+        return;
+      }
+
       try {
+        const genreResponse = await libraries.source.api.get({
+          endpoint: "genre",
+          params: {
+            per_page: 100,
+          },
+        });
+
+        const genres = await genreResponse.json();
+
+        const genrePageCount = genres.filter((genre) => genre.id === data.id)[0]
+          .count;
+
+        const roundedGenrePageCount = Math.ceil(genrePageCount / 12);
         const response = await libraries.source.api.get({
           endpoint: "posts",
           params: {
             per_page: 100,
-            genre: id,
           },
         });
 
-        const returnedData = await response.json();
+        const pages = libraries.source.getTotalPages(response);
 
-        setGenres(returnedData);
+        const requests = [];
+
+        for (let page = 1; page <= roundedGenrePageCount; page++) {
+          requests.push(
+            libraries.source.api.get({
+              endpoint: "posts",
+              params: {
+                per_page: 12,
+                genre: data.id,
+                page,
+              },
+            })
+          );
+        }
+
+        const genreArrays = await Promise.all(requests).then((responses) =>
+          Promise.all(responses.map((r) => r.json()))
+        );
+
+        let genreArray = Object.values(genreArrays).flat();
+
+        setGenres(genreArray);
       } catch (e) {
         console.log(e);
         return;
       }
     })();
-  }, [id]);
+  }, [data.id]);
 
   return (
     <>
       {genres &&
-        genres.map((item, index) => {
+        genres.map((item) => {
           const genre = item.genre;
           const genreArray = [];
-          genre &&
-            Object.entries(genre).map((genre) => {
-              genreArray.push(state.source.genre[genre[1]].name);
-            });
+
           return (
-            <Post>
+            <Post key={item.featured_media}>
               <PostHeader>
                 <SectionContainer
                   featuredImage={state.theme.featuredMedia.showOnArchive}

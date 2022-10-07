@@ -14,13 +14,10 @@ const Genres = ({ state, libraries }) => {
           },
         });
 
-        await libraries.source.populate({
-          state,
-          response,
-        });
+        const genres = await response.json();
 
         let genreArray = [];
-        Object.entries(state.source.genre).forEach((item) => {
+        Object.entries(genres).forEach((item) => {
           genreArray.push(item[1]);
         });
 
