@@ -82,6 +82,7 @@ const Main = styled.main`
   min-width: 300px;
   ${({ noFlex }) => !noFlex && "display: flex;"};
   flex-wrap: wrap;
+  align-content: baseline;
 `;
 
 const Wrapper = styled.div`
