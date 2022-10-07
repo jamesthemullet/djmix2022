@@ -19,7 +19,7 @@ const twentyTwentyTheme = {
     theme: {
       colors: {
         gray: {
-          base: "#6D6D6D",
+          base: "#525252",
           light: "#DCD7CA",
           lighter: "#F5EFE0",
         },
@@ -27,7 +27,7 @@ const twentyTwentyTheme = {
         headerBg: "#ffffff",
         footerBg: "#ffffff",
         bodyBg: "#ffffff",
-        text: "#000000"
+        text: "#000000",
       },
       // Whether to show the search button in page header
       showSearchInHeader: true,

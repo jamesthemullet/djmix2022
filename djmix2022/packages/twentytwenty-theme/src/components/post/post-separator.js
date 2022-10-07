@@ -1,7 +1,7 @@
 import { styled } from "frontity";
 
 const PostSeparator = styled.hr`
-  color: #6d6d6d;
+  color: #525252;
   margin-left: auto;
   margin-right: auto;
   width: calc(100% - 4rem);

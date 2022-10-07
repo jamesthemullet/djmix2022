@@ -11,11 +11,11 @@ export const PostMetaWrapper = styled.div`
 
 export const PostMetaList = styled.ul`
   justify-content: center;
-  color: #6d6d6d;
+  color: #5d3fd3;
   display: flex;
   flex-wrap: wrap;
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 800;
   list-style: none;
   margin: -1rem 0 0 -2rem;
 
@@ -24,7 +24,8 @@ export const PostMetaList = styled.ul`
   }
 
   @media (min-width: 700px) {
-    font-size: 1.6rem;
+    font-size: 2rem;
+    letter-spacing: 1px;
     margin: -1.4rem 0 0 -3rem;
   }
 `;
@@ -32,6 +33,7 @@ export const PostMetaList = styled.ul`
 const PostMeta = ({ state, item }) => {
   const author = state.source.author[item.author];
   const date = new Date(item.date);
+  const { primary } = state.theme.colors;
   // const numberOfComments = item.comments.length;
 
   return (
