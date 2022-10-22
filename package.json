@@ -16,7 +16,11 @@
     "serve": "frontity serve",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "prepare": "husky install",
+    "lint-staged": {
+      "**/*.js": "prettier --write --ignore-unknown"
+    }
   },
   "prettier": {},
   "dependencies": {
@@ -27,7 +31,8 @@
     "@frontity/wp-comments": "^1.0.0",
     "@frontity/wp-source": "^1.11.7",
     "@frontity/yoast": "^2.1.1",
-    "frontity": "^1.17.1"
+    "frontity": "^1.17.1",
+    "husky": "^8.0.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.40.1",
