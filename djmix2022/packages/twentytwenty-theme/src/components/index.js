@@ -47,6 +47,7 @@ const Theme = ({ state }) => {
           {/* Add the main section. It renders a different component depending
           on the type of URL we are in. */}
           <Main id="main" noFlex={data.isSearch}>
+            {/* {data.isFetching ? <Loading>...loading</Loading> : ""} */}
             <Switch>
               <SearchResults when={data.isSearch} />
               <Archive when={data.isArchive} />
@@ -68,8 +69,13 @@ const Theme = ({ state }) => {
 
 export default connect(Theme);
 
+// const Loading = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// `;
+
 const HeadContainer = styled.div`
-  // display: flex;
   align-items: center;
   flex-direction: column;
   background-color: #1f38c5;

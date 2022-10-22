@@ -4,22 +4,22 @@ import Oswald from "../../fonts/Oswald/Oswald-VariableFont_wght.ttf";
 import Knewave from "../../fonts/Knewave/Knewave-Regular.ttf";
 
 const cssReset = css`
-@font-face {
-  font-family: "Oswald";
-  font-style: normal;
-  font-weight: 400;
+  @font-face {
+    font-family: "Oswald";
+    font-style: normal;
+    font-weight: 400;
 
-  /* Use it inside the CSS */
-  src: url(${Oswald});
-}
-@font-face {
-  font-family: "Knewave";
-  font-style: normal;
-  font-weight: 400;
+    /* Use it inside the CSS */
+    src: url(${Oswald});
+  }
+  @font-face {
+    font-family: "Knewave";
+    font-style: normal;
+    font-weight: 400;
 
-  /* Use it inside the CSS */
-  src: url(${Knewave});
-}
+    /* Use it inside the CSS */
+    src: url(${Knewave});
+  }
   html,
   body {
     border: none;

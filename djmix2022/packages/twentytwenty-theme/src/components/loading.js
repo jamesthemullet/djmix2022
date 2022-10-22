@@ -42,7 +42,6 @@ const wrapper = (width, height, color) =>
     position: relative;
     width: ${width}px;
     height: ${height}px;
-    overflow: hidden;
     background-color: ${addAlpha(color, 0.2)};
     background-clip: padding-box;
   `;
@@ -50,6 +49,7 @@ const wrapper = (width, height, color) =>
 const Loading = ({ state }) => (
   <Container>
     <div css={wrapper(240, 4, state.theme.colors.primary)}>
+      <p>Loading...give us a few seconds...</p>
       <div css={style(1, state.theme.colors.primary)} />
     </div>
   </Container>
@@ -68,5 +68,9 @@ const Container = styled.div`
 
   & > * {
     margin-top: 24px;
+  }
+
+  p {
+    text-align: center;
   }
 `;
