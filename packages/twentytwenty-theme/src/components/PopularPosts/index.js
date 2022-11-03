@@ -3,9 +3,8 @@ import { fetch } from "frontity";
 import Link from "../link";
 import { useEffect, useState } from "react";
 
-const PopularPosts = ({ state }) => {
+const PopularPosts = () => {
   const [popular, popularSet] = useState([]);
-  const data = state.source.get("/");
 
   useEffect(() => {
     (async () => {

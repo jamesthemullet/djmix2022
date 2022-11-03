@@ -10,21 +10,17 @@ import {
 } from "./post/post-item";
 import { useEffect, useState } from "react";
 
-import PostCategories from "./post/post-categories";
 import PostMeta from "./post/post-meta";
-import PostTags from "./post/post-tags";
 
 const LeagueOfMixes = ({ state, libraries }) => {
   const data = state.source.get(state.router.link);
   const post = state.source[data.type][data.id];
-  console.log(2, state);
 
   const Html2React = libraries.html2react.Component;
 
   let test = [];
 
   const LeagueTable = () => {
-    const [rating, ratingSet] = useState();
     const [data, dataSet] = useState();
     useEffect(() => {
       (async () => {
@@ -36,18 +32,12 @@ const LeagueOfMixes = ({ state, libraries }) => {
             },
           });
 
-          // console.log(50, await response.json());
-
           const pages = libraries.source.getTotalPages(response);
-
-          console.log(51, pages);
 
           await libraries.source.populate({
             state,
             response,
           });
-
-          console.log(51.1);
 
           const requests = [];
 
@@ -65,16 +55,12 @@ const LeagueOfMixes = ({ state, libraries }) => {
 
           const responses = await Promise.all(requests);
 
-          console.log(53, responses);
-
           await Promise.all(
             responses.map((response) =>
               libraries.source.populate({ state, response })
             )
           );
-          console.log(80, state.source);
         } catch (e) {
-          console.log(e);
           return;
         }
       })();
@@ -165,8 +151,6 @@ const LeagueOfMixes = ({ state, libraries }) => {
     <PostArticle>
       <Header>
         <SectionContainer>
-          {/* If the post has categories, render the categories */}
-          {post.categories && <PostCategories categories={categories} />}
           <PostTitle
             as="h1"
             className="heading-size-1"
@@ -187,8 +171,6 @@ const LeagueOfMixes = ({ state, libraries }) => {
             <p>League table baby</p>
             <LeagueTable />
           </EntryContent>
-          {/* If the post has tags, render it */}
-          {post.tags && <PostTags tags={tags} />}
         </PostInner>
       </Header>
     </PostArticle>
