@@ -46,8 +46,6 @@ const Post = ({ state, actions, libraries }) => {
   // Get all categories
   const allCategories = state.source.category;
 
-  const media = state.source.attachment;
-
   /**
    * The item's categories is an array of each category id. So, we'll look up
    * the details of each category in allCategories.
