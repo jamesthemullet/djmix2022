@@ -1,7 +1,6 @@
 import { connect, styled } from "frontity";
 import Link from "../link";
 import FeaturedMedia from "./featured-media";
-import PostCategories from "./post-categories";
 
 import mq from "../breakpoints";
 
@@ -21,38 +20,13 @@ import mq from "../breakpoints";
  *
  * @returns React element.
  */
-const PostItem = ({
-  state,
-  libraries,
-  item,
-  showExcerpt,
-  showMedia = true,
-}) => {
-  // Get all categories
-  const allCategories = state.source.category;
-  /**
-   * The item's categories is an array of each category id. So, we'll look up
-   * the details of each category in allCategories.
-   */
-  const categories =
-    item.categories && item.categories.map((catId) => allCategories[catId]);
-
-  // Get all tags
-  const allTags = state.source.tag;
-
+const PostItem = ({ state, item, showMedia = true }) => {
   const genre = item.genre;
   const genreArray = [];
   Object.entries(genre).map((genre) => {
     genreArray.push(state.source.genre[genre[1]].name);
   });
-  /**
-   * The item's categories is an array of each tag id. So, we'll look up the
-   * details of each tag in allTags.
-   */
-  const tags = item.tags && item.tags.map((tagId) => allTags[tagId]);
 
-  const content = showExcerpt ? item.excerpt : item.content;
-  const { Component: Html2React } = libraries.html2react;
   return (
     <Post
       isHomePage={
@@ -79,9 +53,6 @@ const PostItem = ({
             state.router.link === "/" || state.router.link.includes("/page/")
           }
         >
-          {/* If the post has categories, render the categories */}
-          {item.categories && <PostCategories categories={categories} />}
-
           {/* The clickable heading for the post */}
           <PostLink link={item.link}>
             <PostItemTitle
@@ -135,13 +106,6 @@ export const PostHeader = styled.header`
   `};
 `;
 
-// Header sizes bases on style.css
-const maxWidths = {
-  thin: "58rem",
-  small: "80rem",
-  medium: "100rem",
-};
-
 /**
  * Return a CSS size depending on the value of the `size` prop received (see
  * {@link maxWidths}).
@@ -149,8 +113,6 @@ const maxWidths = {
  * @param props - Component props, including a `size` one.
  * @returns Size in CSS units.
  */
-
-const getMaxWidth = (props) => maxWidths[props.size] || maxWidths["medium"];
 
 export const SectionContainer = styled.div`
   margin-left: auto;

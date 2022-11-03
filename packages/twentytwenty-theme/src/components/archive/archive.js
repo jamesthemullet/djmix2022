@@ -34,8 +34,7 @@ const Archive = ({ state, showExcerpt, showMedia }) => {
       )}
 
       {/* Iterate over the items of the list. */}
-      {data.items.map(({ type, id }, index) => {
-        const isLastArticle = index === data.items.length - 1;
+      {data.items.map(({ type, id }) => {
         const item = state.source[type][id];
         // Render one Item component for each one.
         return (

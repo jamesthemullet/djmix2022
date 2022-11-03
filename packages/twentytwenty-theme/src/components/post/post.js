@@ -10,7 +10,6 @@ import {
   PostCaption,
   SectionContainer,
 } from "./post-item";
-import PostCategories from "./post-categories";
 import PostMeta from "./post-meta";
 import PostTags from "./post-tags";
 import Comments from "../comments";
@@ -43,16 +42,6 @@ const Post = ({ state, actions, libraries }) => {
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
 
-  // Get all categories
-  const allCategories = state.source.category;
-
-  /**
-   * The item's categories is an array of each category id. So, we'll look up
-   * the details of each category in allCategories.
-   */
-  const categories =
-    post.categories && post.categories.map((catId) => allCategories[catId]);
-
   // Get all tags
   const allTags = state.source.tag;
 
@@ -76,8 +65,6 @@ const Post = ({ state, actions, libraries }) => {
     <PostArticle>
       <Header>
         <SectionContainer>
-          {/* If the post has categories, render the categories */}
-          {post.categories && <PostCategories categories={categories} />}
           <PostTitle
             as="h1"
             className="heading-size-1"

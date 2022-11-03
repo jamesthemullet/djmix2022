@@ -18,7 +18,9 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "no-console": 1
   },
   "ignorePatterns": ["build/*"] // <<< ignore all files in test folder
 }

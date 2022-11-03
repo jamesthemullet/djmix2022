@@ -33,14 +33,6 @@ const GenrePage = ({ state, libraries, data }) => {
           .count;
 
         const roundedGenrePageCount = Math.ceil(genrePageCount / 12);
-        const response = await libraries.source.api.get({
-          endpoint: "posts",
-          params: {
-            per_page: 100,
-          },
-        });
-
-        const pages = libraries.source.getTotalPages(response);
 
         const requests = [];
 
@@ -75,7 +67,6 @@ const GenrePage = ({ state, libraries, data }) => {
     <>
       {genres &&
         genres.map((item) => {
-          const genre = item.genre;
           const genreArray = [];
 
           return (

@@ -1,4 +1,4 @@
-import { connect, Global, Head, styled, css } from "frontity";
+import { connect, Global, Head, styled } from "frontity";
 import Switch from "@frontity/components/switch";
 import Footer from "./footer";
 import globalStyles from "./styles/global-styles";
@@ -68,19 +68,6 @@ const Theme = ({ state }) => {
 };
 
 export default connect(Theme);
-
-// const Loading = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
-const HeadContainer = styled.div`
-  align-items: center;
-  flex-direction: column;
-  background-color: #1f38c5;
-  max-width: 250px;
-`;
 
 const Main = styled.main`
   flex: 1;

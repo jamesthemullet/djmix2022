@@ -2,7 +2,7 @@ import { styled, connect } from "frontity";
 import { useEffect, useState } from "react";
 import Link from "./link";
 
-const Genres = ({ state, libraries }) => {
+const Genres = ({ libraries }) => {
   const [genres, setGenres] = useState([]);
   useEffect(() => {
     (async () => {
