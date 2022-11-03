@@ -33,8 +33,6 @@ export const PostMetaList = styled.ul`
 const PostMeta = ({ state, item }) => {
   const author = state.source.author[item.author];
   const date = new Date(item.date);
-  const { primary } = state.theme.colors;
-  // const numberOfComments = item.comments.length;
 
   return (
     <PostMetaWrapper>
