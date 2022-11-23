@@ -30,7 +30,7 @@ const settings = {
       name: "@frontity/wp-source",
       state: {
         source: {
-          url: "https://djmixoftheweek.com",
+          url: "http://blog.djmixoftheweek.com",
           params: {
             per_page: 12,
             _embed: true,
