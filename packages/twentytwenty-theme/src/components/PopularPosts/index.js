@@ -4,16 +4,18 @@ import Link from "../link";
 import { useEffect, useState } from "react";
 
 const PopularPosts = () => {
-  const [popular, popularSet] = useState([]);
+  const [popular, setPopular] = useState("");
 
   useEffect(() => {
     (async () => {
       try {
         const test = await fetch(
-          `https://djmixoftheweek.com/wp-json/top-10/v1/popular-posts`
+          `http://blog.djmixoftheweek.com/wp-json/top-10/v1/popular-posts`
         );
         const response = await test.json();
-        popularSet(response);
+        if (response.data.status === 200) {
+          setPopular(response);
+        }
       } catch (e) {
         console.log(e);
         return;

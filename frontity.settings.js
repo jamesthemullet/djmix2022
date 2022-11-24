@@ -2,7 +2,7 @@ const settings = {
   name: "djmix2022",
   state: {
     frontity: {
-      url: "https://djmixoftheweek.com",
+      url: "https://www.djmixoftheweek.com",
       title: "DJ Mix Of The Week",
       description:
         "One house/techno or something similar DJ mix recommended to you almost every week",
@@ -30,7 +30,7 @@ const settings = {
       name: "@frontity/wp-source",
       state: {
         source: {
-          url: "https://djmixoftheweek.com",
+          url: "http://blog.djmixoftheweek.com",
           params: {
             per_page: 12,
             _embed: true,
