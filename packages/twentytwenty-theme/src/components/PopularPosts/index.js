@@ -10,7 +10,7 @@ const PopularPosts = () => {
     (async () => {
       try {
         const test = await fetch(
-          `http://blog.djmixoftheweek.com/wp-json/top-10/v1/popular-posts`
+          `https://blog.djmixoftheweek.com/wp-json/top-10/v1/popular-posts`
         );
         const response = await test.json();
         if (response.data.status === 200) {
