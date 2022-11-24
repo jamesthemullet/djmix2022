@@ -13,13 +13,12 @@ const PopularPosts = () => {
           `http://blog.djmixoftheweek.com/wp-json/top-10/v1/popular-posts`
         );
         const response = await test.json();
-        console.log(4, response);
         if (response.data.status === 200) {
           setPopular(response);
         }
       } catch (e) {
-        console.log(33, e);
-        return undefined;
+        console.log(e);
+        return;
       }
     })();
   }, []);
