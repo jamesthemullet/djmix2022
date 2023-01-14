@@ -121,6 +121,9 @@ export const SectionContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  ${mq("md")} {
+    padding: 1rem 2rem;
+  }
   ${({ isHomePage }) =>
     isHomePage &&
     `
@@ -175,6 +178,11 @@ export const PostLink = styled(Link)`
   display: inline-block;
   &:hover {
     text-decoration: underline;
+  }
+  ${mq("md")} {
+    h2 {
+      font-size: 3rem;
+    }
   }
 `;
 

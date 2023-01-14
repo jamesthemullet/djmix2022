@@ -50,11 +50,15 @@ export const BaseToggle = styled.button`
 
 // Used for the menu toggle button on Mobile
 export const NavToggle = styled(BaseToggle)`
+  @media (max-width: 768px) {
+    display: block;
+  }
   position: absolute;
-  bottom: 80%;
-  right: 0;
+  display: none;
+  bottom: 60%;
+  right: 10px;
   top: 0;
-  width: 6.6rem;
+  width: 4.6rem;
 `;
 
 export const CloseNavToggle = styled(BaseToggle)`
