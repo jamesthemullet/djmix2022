@@ -36,9 +36,13 @@ const Header = ({ state }) => {
           <Navigation />
         </HeaderNavigationWrapper>
         {/* Desktop search button */}
-        {state.theme.showSearchInHeader && <SearchButton />}
-        <PopularPosts></PopularPosts>
-        <Genres></Genres>
+        {!state.theme.isMobile && (
+          <DesktopExtra>
+            {state.theme.showSearchInHeader && <SearchButton />}
+            <PopularPosts></PopularPosts>
+            <Genres></Genres>
+          </DesktopExtra>
+        )}
       </HeaderInner>
       {/* Global search modal */}
       <SearchModal />
@@ -68,7 +72,7 @@ const TitleWrapper = styled.div`
 `;
 
 const PageHeader = styled.header`
-  z-index: 1;
+  z-index: 100;
   background: ${(props) => props.bg};
   position: relative;
   max-width: 300px;
@@ -120,5 +124,16 @@ const StyledLink = styled(Link)`
 
 const HeaderNavigationWrapper = styled.div`
   display: flex;
+  ${mq("md")} {
+    display: none;
+  }
   width: 100%;
+`;
+
+const DesktopExtra = styled.div`
+  display: flex;
+  flex-direction: column;
+  ${mq("md")} {
+    display: none;
+  }
 `;

@@ -1,33 +1,26 @@
 import { styled, connect } from "frontity";
 import Link from "./link";
 import SectionContainer from "./styles/section-container";
+import SearchButton from "./search/search-button";
+import PopularPosts from "./PopularPosts";
+import Genres from "./genres-list";
 
-// Component that provides scroll to top functionality
-const BackToTop = () => {
-  // scroll to top function
-  const scrollToTop = (event) => {
-    // prevent the default behaviors
-    event.preventDefault();
-    // scroll to the top smoothly
-    scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  };
-
-  return (
-    <a href="#site-header" onClick={scrollToTop} style={{ cursor: "pointer" }}>
-      <span style={{ marginRight: 8 }}>To the top</span>
-      <span className="arrow" aria-hidden="true">
-        ↑
-      </span>
-    </a>
-  );
-};
+import mq from "./breakpoints";
 
 const Footer = ({ state }) => {
+  console.log(100000, state);
   const currentYear = new Date().getFullYear();
   const { footerBg } = state.theme.colors;
 
   return (
     <SiteFooter bg={footerBg} role="contentinfo">
+      {state.theme.isMobile && (
+        <MobileExtra>
+          {state.theme.showSearchInHeader && <SearchButton />}
+          <PopularPosts></PopularPosts>
+          <Genres></Genres>
+        </MobileExtra>
+      )}
       <SiteFooterInner>
         <Credits>
           <Copyright>
@@ -35,9 +28,6 @@ const Footer = ({ state }) => {
             <Link link={state.frontity.url}>{state.frontity.title}</Link>
           </Copyright>
         </Credits>
-        <BackToTopContainer>
-          <BackToTop />
-        </BackToTopContainer>
       </SiteFooterInner>
     </SiteFooter>
   );
@@ -85,7 +75,12 @@ const Copyright = styled.p`
   }
 `;
 
-const BackToTopContainer = styled.span`
-  position: absolute;
-  right: 30px;
+const MobileExtra = styled.div`
+  display: none;
+  ${mq("md")} {
+    padding: 2rem;
+    background-color: #5d3fd3;
+    display: flex;
+    flex-direction: column;
+  }
 `;
