@@ -36,13 +36,13 @@ const Header = ({ state }) => {
           <Navigation />
         </HeaderNavigationWrapper>
         {/* Desktop search button */}
-        {!state.theme.isMobile && (
+        {/* {!state.theme.isMobile && (
           <DesktopExtra>
             {state.theme.showSearchInHeader && <SearchButton />}
             <PopularPosts></PopularPosts>
             <Genres></Genres>
           </DesktopExtra>
-        )}
+        )} */}
       </HeaderInner>
       {/* Global search modal */}
       <SearchModal />
