@@ -1080,6 +1080,15 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@frontity/analytics@^1.3.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@frontity/analytics/-/analytics-1.4.1.tgz#05fb7312ad4c6ed20717322cbbb0aaf223ef28d6"
+  integrity sha512-uhG8VURn3ACdgR9OFyn8tenOQ+/qdx10AbYA+4OGUavtpwVoN1uLhGCISQ8P8h4Z9qlfjlqw5PHQHwrIXRM4dA==
+  dependencies:
+    "@frontity/router" "^1.2.1"
+    "@frontity/source" "^1.5.1"
+    frontity "^1.15.0"
+
 "@frontity/components@^1.7.1", "@frontity/components@^1.7.2":
   version "1.8.2"
   resolved "https://registry.npmjs.org/@frontity/components/-/components-1.8.2.tgz"
@@ -1168,6 +1177,15 @@
   integrity sha512-BNTwUcVeGIXiEfhQVsocnJrENKFrC5hmugbR/zRV8Ija3H+XudPqueJWwxI06HWxQYhb3U7TIkrtZUoInksDuw==
   dependencies:
     ramda "^0.27.1"
+
+"@frontity/google-analytics@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@frontity/google-analytics/-/google-analytics-2.1.0.tgz#b82aab8ae8076a3303c0626ac60482802ae262ad"
+  integrity sha512-2X0VrUZ6lxybyMKFyYoy51YoRpyMh/ztFoa18AxzzI3zQvMhdGc2yEvQ49K6+wwsBYL82Hr6SSjMexujrbxspg==
+  dependencies:
+    "@frontity/analytics" "^1.3.1"
+    deepmerge "^4.2.2"
+    frontity "^1.14.2"
 
 "@frontity/head-tags@^1.1.1":
   version "1.1.1"

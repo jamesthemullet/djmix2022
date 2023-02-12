@@ -38,6 +38,14 @@ const settings = {
         },
       },
     },
+    {
+      name: "@frontity/google-analytics",
+      state: {
+        googleAnalytics: {
+          trackingId: "G-29LKC2P8CY",
+        },
+      },
+    },
     "@frontity/tiny-router",
     "@frontity/html2react",
     "@frontity/wp-comments",
