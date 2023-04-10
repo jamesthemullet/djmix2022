@@ -53,3 +53,20 @@ jobs:
           header: lighthouse
           message: |
             ${{ steps.format_lighthouse_score.outputs.comment }}
+  axe:
+    runs-on: ubuntu-latest
+    env:
+      WORDPRESS_API_URL: https://blog.djmixoftheweek.com/graphql
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: yarn install
+      - run: yarn run build
+      - run: yarn dev & npx wait-on http://localhost:3000
+      - name: Run axe
+        run: |
+          yarn add @axe-core/cli
+          npx axe http://localhost:3000 --exit

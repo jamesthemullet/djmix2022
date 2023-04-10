@@ -24,6 +24,7 @@
   },
   "prettier": {},
   "dependencies": {
+    "@axe-core/cli": "^4.6.1",
     "@frontity/core": "^1.16.0",
     "@frontity/google-analytics": "^2.1.0",
     "@frontity/html2react": "^1.7.0",
