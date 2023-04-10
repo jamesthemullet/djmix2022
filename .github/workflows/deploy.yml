@@ -65,7 +65,7 @@ jobs:
           node-version: 14.x
       - run: yarn install
       - run: yarn global add npx
-      - run: yarn build
+      - run: frontity build
       - run: yarn dev & npx wait-on http://localhost:3000
       - name: Run axe
         run: |
