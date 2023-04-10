@@ -64,8 +64,8 @@ jobs:
         with:
           node-version: 14.x
       - run: yarn install
-      - run: export NODE_OPTIONS="${NODE_OPTIONS//--openssl-legacy-provider/}"
-      - run: yarn run build
+      - run: yarn global add npx
+      - run: yarn build
       - run: yarn dev & npx wait-on http://localhost:3000
       - name: Run axe
         run: |
