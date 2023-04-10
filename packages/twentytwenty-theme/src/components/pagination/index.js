@@ -23,14 +23,14 @@ const Pagination = ({ state, actions }) => {
     <PaginationSection>
       {/* If there's a next page, render this link */}
       {next && (
-        <Link link={next}>
+        <Link role="button" link={next}>
           <Text>← Older posts</Text>
         </Link>
       )}
 
       {/* If there's a previous page, render this link */}
       {previous && (
-        <Link link={previous}>
+        <Link role="button" link={previous}>
           <Text>Newer posts →</Text>
         </Link>
       )}

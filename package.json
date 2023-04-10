@@ -17,6 +17,7 @@
     "serve": "frontity serve",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
+    "test:axe": "axe http://localhost:3000",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "prepare": "husky install"
   },
