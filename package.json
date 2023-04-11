@@ -13,9 +13,11 @@
   "scripts": {
     "dev": "frontity dev",
     "build": "export NODE_OPTIONS=--openssl-legacy-provider; frontity build",
+    "build:legacy": "frontity build",
     "serve": "frontity serve",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
+    "test:axe": "axe http://localhost:3000",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "prepare": "husky install"
   },
@@ -24,6 +26,7 @@
   },
   "prettier": {},
   "dependencies": {
+    "@axe-core/cli": "^4.6.1",
     "@frontity/core": "^1.16.0",
     "@frontity/google-analytics": "^2.1.0",
     "@frontity/html2react": "^1.7.0",
