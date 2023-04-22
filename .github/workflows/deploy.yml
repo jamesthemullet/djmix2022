@@ -4,7 +4,7 @@ jobs:
   deploy_and_audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Vercel Action
         id: vercel_action
         uses: amondnet/vercel-action@v20
@@ -15,7 +15,7 @@ jobs:
           vercel-project-id: ${{ secrets.PROJECT_ID}}
       - name: Audit URLs using Lighthouse
         id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@v7
+        uses: treosh/lighthouse-ci-action@v9
         with:
           urls: |
             ${{ steps.vercel_action.outputs.preview-url }}
@@ -53,3 +53,21 @@ jobs:
           header: lighthouse
           message: |
             ${{ steps.format_lighthouse_score.outputs.comment }}
+  axe:
+    runs-on: ubuntu-latest
+    env:
+      WORDPRESS_API_URL: https://blog.djmixoftheweek.com/graphql
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: yarn install
+      - run: yarn global add npx
+      - run: yarn build:legacy
+      - run: yarn dev & npx wait-on http://localhost:3000
+      - name: Run axe
+        run: |
+          yarn add @axe-core/cli
+          npx axe http://localhost:3000 --exit
