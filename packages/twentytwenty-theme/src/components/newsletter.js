@@ -6,31 +6,9 @@ import {
   PostTitle,
   SectionContainer,
 } from "./post/post-item";
-import { useEffect, useState } from "react";
 
-const Newsletter = ({ state, libraries }) => {
+const Newsletter = ({ state }) => {
   const data = state.source.get(state.router.link);
-  const post = state.source[data.type][data.id];
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const handleLoad = () => {
-      setIsLoading(false);
-    };
-
-    const iframe = document.querySelector("iframe");
-
-    if (iframe) {
-      iframe.addEventListener("load", handleLoad);
-    }
-
-    return () => {
-      if (iframe) {
-        iframe.removeEventListener("load", handleLoad);
-      }
-    };
-  }, []);
 
   return data.isReady ? (
     <PostArticle>
@@ -39,11 +17,12 @@ const Newsletter = ({ state, libraries }) => {
           <PostTitle
             as="h1"
             className="heading-size-1"
-            dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+            dangerouslySetInnerHTML={{ __html: "Newsletter Sign-Up" }}
           />
         </SectionContainer>
         <PostBody>
           <iframe
+            title="Newsletter Sign-Up"
             src="https://blog.djmixoftheweek.com/newsletter-sign-up/"
             height="300px"
           ></iframe>
