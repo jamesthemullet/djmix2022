@@ -18,6 +18,7 @@ const settings = {
             ["About", "/about/"],
             ["League Of Mixes", "/league-of-mixes/"],
             ["What About My Mix?", "/what-about-my-mix/"],
+            ["Newsletter Sign-up", "/newsletter-sign-up/"],
           ],
           featured: {
             showOnList: false,

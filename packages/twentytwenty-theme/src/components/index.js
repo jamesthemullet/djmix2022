@@ -12,6 +12,7 @@ import SkipLink from "./styles/skip-link";
 import MetaTitle from "./page-meta-title";
 import PageError from "./page-error";
 import LeagueTable from "./league-table";
+import Newsletter from "./newsletter";
 import GenrePage from "./GenrePage";
 import Pagination from "./pagination";
 /**
@@ -52,6 +53,7 @@ const Theme = ({ state }) => {
               <SearchResults when={data.isSearch} />
               <Archive when={data.isArchive} />
               <LeagueTable when={data.route === "/league-of-mixes/"} />
+              <Newsletter when={data.route === "/newsletter-sign-up/"} />
               {/* <GenrePage when={data.route.startsWith("/genre/")} data={data} /> */}
               <Post when={data.isPostType} />
               <PageError when={data.isError} />
