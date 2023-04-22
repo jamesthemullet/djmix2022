@@ -8,7 +8,6 @@ import Genres from "./genres-list";
 import mq from "./breakpoints";
 
 const Footer = ({ state }) => {
-  console.log(100000, state);
   const currentYear = new Date().getFullYear();
   const { footerBg } = state.theme.colors;
 
