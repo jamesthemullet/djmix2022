@@ -17,6 +17,7 @@ const twentyTwentyTheme = {
      * relevant state. It is scoped to the `theme` namespace.
      */
     theme: {
+      postList: [],
       colors: {
         gray: {
           base: "#525252",
@@ -105,13 +106,6 @@ const twentyTwentyTheme = {
       processors: [image, link],
     },
   },
-};
-
-export const server = (app) => {
-  app.use((ctx) => {
-    ctx.headers["user-agent"];
-    ctx.settings.state.frontity.isMobile = ctx.userAgent.isMobile;
-  });
 };
 
 export default twentyTwentyTheme;
