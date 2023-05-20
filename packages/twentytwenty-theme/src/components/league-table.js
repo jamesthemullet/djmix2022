@@ -18,134 +18,90 @@ const LeagueOfMixes = ({ state, libraries }) => {
 
   const Html2React = libraries.html2react.Component;
 
-  let test = [];
+  const [leagueData, setLeagueData] = useState([]);
 
-  const LeagueTable = () => {
-    const [data, dataSet] = useState();
-    useEffect(() => {
-      (async () => {
-        try {
-          const response = await libraries.source.api.get({
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [ratingResponse, postsResponse] = await Promise.all([
+          libraries.source.api.get({
             endpoint: "rating",
             params: {
-              per_page: 100,
+              per_page: 36,
             },
-          });
-
-          const pages = libraries.source.getTotalPages(response);
-
-          await libraries.source.populate({
-            state,
-            response,
-          });
-
-          const requests = [];
-
-          for (let page = 1; page <= pages; page++) {
-            requests.push(
-              libraries.source.api.get({
-                endpoint: "rating",
-                params: {
-                  per_page: 100,
-                  page,
-                },
-              })
-            );
-          }
-
-          const responses = await Promise.all(requests);
-
-          await Promise.all(
-            responses.map((response) =>
-              libraries.source.populate({ state, response })
-            )
-          );
-        } catch (e) {
-          return;
-        }
-      })();
-      (async () => {
-        try {
-          const response = await libraries.source.api.get({
+          }),
+          libraries.source.api.get({
             endpoint: "posts",
             params: {
-              per_page: 100,
+              per_page: 36,
             },
-          });
+          }),
+        ]);
 
-          const pages = libraries.source.getTotalPages(response);
+        const ratingPages = libraries.source.getTotalPages(ratingResponse);
+        const postPages = libraries.source.getTotalPages(postsResponse);
 
-          await libraries.source.populate({
-            state,
-            response,
-          });
+        const ratingRequests = [];
+        const postRequests = [];
 
-          const requests = [];
+        for (let page = 1; page <= ratingPages; page++) {
+          ratingRequests.push(
+            libraries.source.api.get({
+              endpoint: "rating",
+              params: {
+                per_page: 36,
+                page,
+              },
+            })
+          );
+        }
 
-          for (let page = 1; page <= pages; page++) {
-            requests.push(
-              libraries.source.api.get({
-                endpoint: "posts",
-                params: {
-                  per_page: 100,
-                  page,
-                },
-              })
+        for (let page = 1; page <= postPages; page++) {
+          postRequests.push(
+            libraries.source.api.get({
+              endpoint: "posts",
+              params: {
+                per_page: 36,
+                page,
+              },
+            })
+          );
+        }
+
+        const [ratingResponses, postResponses] = await Promise.all([
+          Promise.all(ratingRequests),
+          Promise.all(postRequests),
+        ]);
+
+        await Promise.all([
+          ...ratingResponses.map((response) =>
+            libraries.source.populate({ state, response })
+          ),
+          ...postResponses.map((response) =>
+            libraries.source.populate({ state, response })
+          ),
+        ]);
+
+        const dataArray = Object.values(state.source.post).map((item) => {
+          const ratingId = item.rating;
+          if (state.source.rating[ratingId[0]]) {
+            item.rating.ratingNumber = Number(
+              state.source.rating[ratingId[0]].name
             );
           }
+          return item;
+        });
 
-          const responses = await Promise.all(requests);
+        dataArray.sort((a, b) => b.rating.ratingNumber - a.rating.ratingNumber);
 
-          await Promise.all(
-            responses.map((response) =>
-              libraries.source.populate({ state, response })
-            )
-          );
+        setLeagueData(dataArray);
+      } catch (e) {
+        console.error(e);
+      }
+    };
 
-          test = state.source.post;
-
-          const dataArray = [];
-          const testArray = Object.entries(test);
-          testArray.forEach((item) => {
-            if (state.source.rating[item[1].rating[0]]) {
-              item[1].rating.ratingNumber = Number(
-                state.source.rating[item[1].rating[0]].name
-              );
-            }
-            dataArray.push(item[1]);
-          });
-
-          dataArray.sort(
-            (a, b) => b.rating.ratingNumber - a.rating.ratingNumber
-          );
-          dataSet(dataArray);
-        } catch (e) {
-          console.log(e);
-          return;
-        }
-      })();
-    }, []);
-    return (
-      <div>
-        <ul>
-          {data &&
-            data.map((item, index) => {
-              const ratingId = item.rating;
-              return (
-                <ListItem key={item.id}>
-                  {index + 1}
-                  {". "}
-                  <a href={item.link}>{decode(item.title.rendered)}</a> -
-                  {!!ratingId[0] &&
-                    state.source.rating[ratingId] &&
-                    state.source.rating[ratingId].name}
-                </ListItem>
-              );
-            })}
-        </ul>
-      </div>
-    );
-  };
+    fetchData();
+  }, []);
 
   return data.isReady ? (
     <PostArticle>
@@ -156,20 +112,18 @@ const LeagueOfMixes = ({ state, libraries }) => {
             className="heading-size-1"
             dangerouslySetInnerHTML={{ __html: post.title.rendered }}
           />
-          {/* If the post has a caption (like attachments), render it */}
           {post.caption && (
             <PostCaption
               dangerouslySetInnerHTML={{ __html: post.caption.rendered }}
             />
           )}
-          {/* The post's metadata like author, publish date, and comments */}
           <PostMeta item={post} />
         </SectionContainer>
         <PostInner size="thin" featuredImage={post.featured_media > 0}>
           <EntryContent>
             <Html2React html={post.content.rendered} />
             <p>League table baby</p>
-            <LeagueTable />
+            <LeagueTable data={leagueData} state={state} />
           </EntryContent>
         </PostInner>
       </Header>
@@ -192,5 +146,25 @@ const ListItem = styled.li`
   margin: 0 0 0 2rem;
   list-style-type: none;
 `;
+
+const LeagueTable = ({ data, state }) => (
+  <div>
+    <ul>
+      {data &&
+        data.map((item, index) => {
+          const ratingId = item.rating;
+          return (
+            <ListItem key={item.id}>
+              {index + 1}. <a href={item.link}>{decode(item.title.rendered)}</a>{" "}
+              -
+              {!!ratingId[0] &&
+                state.source.rating[ratingId] &&
+                state.source.rating[ratingId].name}
+            </ListItem>
+          );
+        })}
+    </ul>
+  </div>
+);
 
 export default connect(LeagueOfMixes);
