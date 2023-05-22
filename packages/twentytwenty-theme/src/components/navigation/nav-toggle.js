@@ -103,9 +103,9 @@ export const LabeledIcon = ({ icon: Icon, label }) => (
   </ToggleInner>
 );
 
-export const ToggleInner = styled.span`
+export const ToggleInner = styled.div`
   display: flex;
-  justify-content: center;
+  align-items: center;
   height: 2.3rem;
   position: relative;
   bottom: 0.5rem;
@@ -127,17 +127,13 @@ export const ToggleInner = styled.span`
 
 export const ToggleText = styled.span`
   color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  position: absolute;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding-left: 1.5rem;
   top: calc(100% + 0.5rem);
   width: auto;
   white-space: nowrap;
   word-break: break-all;
-
-  @media (min-width: 700px) {
-    font-size: 1.2rem;
-  }
 
   @media (min-width: 1000px) {
     left: 0;

@@ -5,6 +5,7 @@ import {
   LabeledIcon,
   ToggleWrapper,
 } from "../navigation/nav-toggle";
+import mq from "../breakpoints";
 
 const SearchButton = ({ state, actions }) => {
   // Get the state of the search modal
@@ -18,7 +19,6 @@ const SearchButton = ({ state, actions }) => {
           aria-expanded={isSearchModalOpen}
           onClick={openSearchModal}
           aria-label="Click to open search bar..."
-          style={{ bottom: "0.5rem" }}
         >
           <LabeledIcon icon={SearchIcon} label="Search" />
         </BaseToggle>
@@ -31,5 +31,8 @@ export default connect(SearchButton);
 
 const HeaderToggle = styled.div`
   width: 100%;
+  ${mq("md")} {
+    margin-top: 0px;
+  }
   margin-top: 24px;
 `;

@@ -20,7 +20,7 @@ const SearchResults = ({ state }) => {
   return (
     <>
       <ArchiveHeader label="Search" labelColor={primary}>
-        <span>{`“${reverseFormat(searchQuery)}”`}</span>
+        {searchQuery && <span>{`“${reverseFormat(searchQuery)}”`}</span>}
         <IntroText size="thin">
           {isEmpty ? (
             <Text>
