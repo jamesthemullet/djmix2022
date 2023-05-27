@@ -68,8 +68,17 @@ const Text = styled.p`
 `;
 
 const SearchContainer = styled(SectionContainer)`
-  padding-top: 5rem;
-  @media (min-width: 700px) {
-    padding-top: 6rem;
+  max-width: 500px;
+
+  button {
+    background-color: #5d3fd3;
+    padding: 10px 20px;
+    color: white;
+    font-family: "Oswald", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+      Helvetica, sans-serif;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    /* font-size: 20px; */
+    font-weight: 500;
   }
 `;

@@ -46,7 +46,7 @@ const SearchForm = ({ state, actions, libraries }) => {
         />
       </Label>
       <SearchButton bg={primary} type="submit">
-        Search
+        <em>Search</em>
       </SearchButton>
     </Form>
   );
@@ -55,13 +55,10 @@ const SearchForm = ({ state, actions, libraries }) => {
 export default connect(SearchForm);
 
 const Form = styled.form`
-  font-family: "Oswald", Garamond, "Times New Roman", serif;
   align-items: stretch;
   display: flex;
   flex-wrap: nowrap;
-  margin: 0 0 -0.8rem -0.8rem;
   justify-content: center;
-  margin-top: 3rem;
 `;
 
 const Label = styled.label`
@@ -80,5 +77,5 @@ const SearchButton = styled(Button)`
   flex-shrink: 0;
   opacity: 1;
   transition: opacity 0.15s linear;
-  margin: 0 0 0.8rem 0.8rem;
+  margin: 0 0.8rem 0.8rem 0.8rem;
 `;
