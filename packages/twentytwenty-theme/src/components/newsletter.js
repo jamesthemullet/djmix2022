@@ -48,10 +48,4 @@ const Header = styled(PostHeader)`
   padding: 2rem 0;
 `;
 
-const ListItem = styled.li`
-  text-align: left;
-  margin: 0 0 0 2rem;
-  list-style-type: none;
-`;
-
 export default connect(Newsletter);

@@ -15,6 +15,7 @@ import LeagueTable from "./league-table";
 import Newsletter from "./newsletter";
 import GenrePage from "./GenrePage";
 import Pagination from "./pagination";
+import mq from "./breakpoints";
 /**
  * Theme is the root React component of our theme. The one we will export
  * in roots.
@@ -84,4 +85,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   min-height: 100vh;
+  ${mq("md")} {
+    flex-direction: column;
+  }
 `;
