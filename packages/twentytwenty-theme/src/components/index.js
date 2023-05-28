@@ -55,7 +55,7 @@ const Theme = ({ state }) => {
               <Archive when={data.isArchive} />
               <LeagueTable when={data.route === "/league-of-mixes/"} />
               <Newsletter when={data.route === "/newsletter-sign-up/"} />
-              {/* <GenrePage when={data.route.startsWith("/genre/")} data={data} /> */}
+              <GenrePage when={data.route.startsWith("/genre/")} data={data} />
               <Post when={data.isPostType} />
               <PageError when={data.isError} />
               <Loading when={data.isFetching} />
@@ -64,7 +64,6 @@ const Theme = ({ state }) => {
         </Wrapper>
         <Pagination />
       </div>
-
       <Footer />
     </>
   );

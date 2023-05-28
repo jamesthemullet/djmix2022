@@ -17,7 +17,7 @@ const Footer = ({ state }) => {
         <MobileExtra>
           {state.theme.showSearchInHeader && <SearchButton />}
           {/* <PopularPosts></PopularPosts> */}
-          {/* <Genres></Genres> */}
+          <Genres></Genres>
         </MobileExtra>
       )}
       <SiteFooterInner>

@@ -78,7 +78,6 @@ const SearchContainer = styled(SectionContainer)`
       Helvetica, sans-serif;
     letter-spacing: 1px;
     text-transform: capitalize;
-    /* font-size: 20px; */
     font-weight: 500;
   }
 `;
