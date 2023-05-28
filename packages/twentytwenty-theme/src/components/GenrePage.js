@@ -1,5 +1,5 @@
 import { styled, connect } from "frontity";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Post,
   PostItemTitle,
@@ -11,14 +11,51 @@ import {
 import FeaturedMedia from "./post/featured-media";
 
 const GenrePage = ({ state, libraries, data }) => {
-  const [genres, setGenres] = useState([]);
+  const [genrePosts, setGenrePosts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [totalPagesAvailable, setTotalPagesAvailable] = useState(0);
+  const [totalPageesLoaded, setTotalPagesLoaded] = useState(0);
+  const [allGenres, setAllGenres] = useState({});
+
+  const loadMorePosts = async () => {
+    if (loading) return;
+
+    setLoading(true);
+
+    try {
+      const response = await libraries.source.api.get({
+        endpoint: "posts",
+        params: {
+          per_page: 12,
+          genre: data.id,
+          page: page + 1, // Load the next page of posts
+        },
+      });
+
+      const posts = await response.json();
+
+      posts.map((post) => {
+        const genreNames = post.genre.map((genreId) => {
+          const genre = allGenres.find((genre) => genre.id === genreId);
+          return genre.name;
+        });
+        post.genreNames = genreNames;
+      });
+
+      setGenrePosts((prevGenres) => [...prevGenres, ...posts]);
+      setPage((prevPage) => prevPage + 1);
+      const pagesLoadedSoFar = totalPageesLoaded;
+      setTotalPagesLoaded(pagesLoadedSoFar + 1);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     (async () => {
-      if (!data.id || data.id === "") {
-        return;
-      }
-
       try {
         const genreResponse = await libraries.source.api.get({
           endpoint: "genre",
@@ -28,77 +65,82 @@ const GenrePage = ({ state, libraries, data }) => {
         });
 
         const genres = await genreResponse.json();
+        setAllGenres(genres);
 
-        const genrePageCount = genres.filter((genre) => genre.id === data.id)[0]
-          .count;
+        const selectedGenre = genres.find(
+          (genre) =>
+            genre.slug === data.link.replace("/genre/", "").replace("/", "")
+        );
+
+        const genrePageCount = selectedGenre.count;
 
         const roundedGenrePageCount = Math.ceil(genrePageCount / 12);
 
-        const requests = [];
+        const response = await libraries.source.api.get({
+          endpoint: "posts",
+          params: {
+            per_page: 12 * roundedGenrePageCount,
+            genre: selectedGenre.id,
+          },
+        });
 
-        for (let page = 1; page <= roundedGenrePageCount; page++) {
-          requests.push(
-            libraries.source.api.get({
-              endpoint: "posts",
-              params: {
-                per_page: 12,
-                genre: data.id,
-                page,
-              },
-            })
-          );
-        }
+        const posts = await response.json();
 
-        const genreArrays = await Promise.all(requests).then((responses) =>
-          Promise.all(responses.map((r) => r.json()))
-        );
+        // for each post, maps the genres ids from the genre array on post, to get the genre name from the genres array state
+        posts.map((post) => {
+          const genreNames = post.genre.map((genreId) => {
+            const genre = genres.find((genre) => genre.id === genreId);
+            return genre.name;
+          });
+          post.genreNames = genreNames;
+        });
 
-        let genreArray = Object.values(genreArrays).flat();
-
-        setGenres(genreArray);
+        setGenrePosts(posts);
+        setTotalPagesAvailable(roundedGenrePageCount);
+        const pagesLoadedSoFar = totalPageesLoaded;
+        setTotalPagesLoaded(pagesLoadedSoFar + 1);
       } catch (e) {
         console.log(e);
-        return;
       }
     })();
-  }, [data.id]);
+  }, []);
 
   return (
     <>
-      {genres &&
-        genres.map((item) => {
-          const genreArray = [];
+      {genrePosts.length > 0 && // Only render if there are posts in genres array
+        genrePosts.map((item, index) => (
+          <Post key={index}>
+            <PostHeader>
+              <SectionContainer
+                featuredImage={state.theme.featuredMedia.showOnArchive}
+                isHomePage={
+                  state.router.link === "/" ||
+                  state.router.link.includes("/page/")
+                }
+              >
+                <PostLink link={item.link}>
+                  <PostItemTitle
+                    className="heading-size-1"
+                    dangerouslySetInnerHTML={{ __html: item.title.rendered }}
+                  />
+                </PostLink>
 
-          return (
-            <Post key={item.featured_media}>
-              <PostHeader>
-                <SectionContainer
-                  featuredImage={state.theme.featuredMedia.showOnArchive}
-                  isHomePage={
-                    state.router.link === "/" ||
-                    state.router.link.includes("/page/")
-                  }
-                >
+                {item.featured_media && (
                   <PostLink link={item.link}>
-                    <PostItemTitle
-                      className="heading-size-1"
-                      dangerouslySetInnerHTML={{ __html: item.title.rendered }}
-                    />
+                    <ImageContainer>
+                      <FeaturedMedia id={item.featured_media} />
+                    </ImageContainer>
                   </PostLink>
+                )}
+                <Genre>{[...item.genreNames.join(", ")]}</Genre>
+              </SectionContainer>
+            </PostHeader>
+          </Post>
+        ))}
 
-                  {item.featured_media && (
-                    <PostLink link={item.link}>
-                      <ImageContainer>
-                        <FeaturedMedia id={item.featured_media} />
-                      </ImageContainer>
-                    </PostLink>
-                  )}
-                  <Genre>{[...genreArray.join(", ")]}</Genre>
-                </SectionContainer>
-              </PostHeader>
-            </Post>
-          );
-        })}
+      {totalPagesAvailable > totalPageesLoaded && (
+        <MoreButton onClick={loadMorePosts}>Load More</MoreButton>
+      )}
     </>
   );
 };
@@ -108,5 +150,17 @@ const ImageContainer = styled.div`
   margin: 0 auto;
 `;
 
-// Connect the Header component to get access to the `state` in it's `props`
+const MoreButton = styled.button`
+  background-color: #5d3fd3;
+  padding: 10px 20px;
+  color: white;
+  font-family: "Oswald", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    Helvetica, sans-serif;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  font-weight: 500;
+  margin: 20px auto 0;
+  cursor: pointer;
+`;
+
 export default connect(GenrePage);

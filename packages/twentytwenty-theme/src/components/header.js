@@ -39,8 +39,8 @@ const Header = ({ state }) => {
         {!state.theme.isMobile && (
           <DesktopExtra>
             {state.theme.showSearchInHeader && <SearchButton />}
-            {/* <PopularPosts></PopularPosts>
-            <Genres></Genres> */}
+            {/* <PopularPosts></PopularPosts> */}
+            <Genres></Genres>
           </DesktopExtra>
         )}
       </HeaderInner>

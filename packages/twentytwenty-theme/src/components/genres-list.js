@@ -1,11 +1,12 @@
 import { styled, connect } from "frontity";
 import { useEffect, useState } from "react";
-import Link from "./link";
+import CustomLink from "./custom-link";
 
 const Genres = ({ libraries }) => {
   const [genres, setGenres] = useState([]);
+
   useEffect(() => {
-    (async () => {
+    const fetchGenres = async () => {
       try {
         const response = await libraries.source.api.get({
           endpoint: "genre",
@@ -16,19 +17,16 @@ const Genres = ({ libraries }) => {
 
         const genres = await response.json();
 
-        let genreArray = [];
-        Object.entries(genres).forEach((item) => {
-          genreArray.push(item[1]);
-        });
+        const filteredGenres = genres.filter((genre) => genre.count > 1);
+        filteredGenres.sort((a, b) => b.count - a.count);
 
-        genreArray.sort((a, b) => b.count - a.count);
-
-        setGenres(genreArray);
+        setGenres(filteredGenres);
       } catch (e) {
         console.log(e);
-        return;
       }
-    })();
+    };
+
+    fetchGenres();
   }, []);
   return (
     <Genre>
@@ -38,10 +36,10 @@ const Genres = ({ libraries }) => {
           genres.map((item, index) => {
             return (
               <ListItem key={index}>
-                <Link link={item.link}>{item.name}</Link>{" "}
+                <CustomLink link={item.link}>{item.name}</CustomLink>{" "}
                 <span>
                   ({item.count} {item.count > 1 ? "mixes" : "mix"})
-                </span>
+                </span>{" "}
               </ListItem>
             );
           })}
