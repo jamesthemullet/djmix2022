@@ -21,7 +21,6 @@ import mq from "../breakpoints";
  * @returns React element.
  */
 const PostItem = ({ state, item, showMedia = true }) => {
-  console.log(28, item);
   const genre = item.genre;
   const genreArray = [];
   genre &&
