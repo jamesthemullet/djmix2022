@@ -11,11 +11,14 @@ import SectionContainer from "../styles/section-container";
  * - `className`: Required in order to wrap the component with `styled()`.
  * @returns React element.
  */
-const FeaturedMedia = ({ state, id, className, isHomePage }) => {
+const FeaturedMedia = ({ state, id, className, isHomePage, postId }) => {
   const media = state.source.attachment[id];
   const homePageSizes = isHomePage ? "(max-width: 1024px) 100vw, 400px" : "";
 
   if (!media) return null;
+
+  const data = state.source.get(state.router.link);
+  const firstPostId = data.items[0].id;
 
   const srcset =
     Object.values(media.media_details.sizes)
@@ -38,12 +41,21 @@ const FeaturedMedia = ({ state, id, className, isHomePage }) => {
           state.router.link === "/" || state.router.link.includes("/page/")
         }
       >
-        <Image
-          alt={media.title.rendered}
-          src={media.source_url}
-          srcSet={srcset}
-          sizes={homePageSizes}
-        />
+        {postId === firstPostId ? (
+          <img
+            alt={media.title.rendered}
+            src={media.source_url}
+            srcSet={srcset}
+            sizes={homePageSizes}
+          />
+        ) : (
+          <Image
+            alt={media.title.rendered}
+            src={media.source_url}
+            srcSet={srcset}
+            sizes={homePageSizes}
+          />
+        )}
       </SectionContainer>
     </Figure>
   );

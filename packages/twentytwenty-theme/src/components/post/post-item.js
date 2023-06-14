@@ -40,7 +40,7 @@ const PostItem = ({ state, item, showMedia = true }) => {
        */}
       {state.theme.featuredMedia.showOnArchive && showMedia && (
         <PostLink link={item.link}>
-          <FeaturedMedia id={item.featured_media} isHomePage />
+          <FeaturedMedia id={item.featured_media} isHomePage postId={item.id} />
         </PostLink>
       )}
       <PostHeader
