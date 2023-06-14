@@ -21,6 +21,7 @@ import mq from "../breakpoints";
  * @returns React element.
  */
 const PostItem = ({ state, item, showMedia = true }) => {
+  console.log(28, item);
   const genre = item.genre;
   const genreArray = [];
   genre &&
@@ -40,7 +41,7 @@ const PostItem = ({ state, item, showMedia = true }) => {
        */}
       {state.theme.featuredMedia.showOnArchive && showMedia && (
         <PostLink link={item.link}>
-          <FeaturedMedia id={item.featured_media} isHomePage />
+          <FeaturedMedia id={item.featured_media} isHomePage postId={item.id} />
         </PostLink>
       )}
       <PostHeader
