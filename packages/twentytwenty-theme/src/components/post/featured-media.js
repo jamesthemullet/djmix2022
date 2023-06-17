@@ -21,7 +21,8 @@ const FeaturedMedia = ({ state, id, className, isHomePage, postId }) => {
   if (!media) return null;
 
   const data = state.source.get(state.router.link);
-  const firstPostId = data.items[0].id;
+
+  const firstPostId = isHomePage ? data.items[0]?.id : null;
 
   const srcset =
     Object.values(media.media_details.sizes)
@@ -44,7 +45,7 @@ const FeaturedMedia = ({ state, id, className, isHomePage, postId }) => {
           state.router.link === "/" || state.router.link.includes("/page/")
         }
       >
-        {postId === firstPostId ? (
+        {isHomePage && postId === firstPostId ? (
           <img
             alt={media.title.rendered}
             src={media.source_url}
