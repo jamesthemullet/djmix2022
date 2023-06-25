@@ -51,6 +51,7 @@ const FeaturedMedia = ({ state, id, className, isHomePage, postId }) => {
             src={media.source_url}
             srcSet={srcset}
             sizes={homePageSizesFirstImage}
+            width="100%"
           />
         ) : (
           <Image
