@@ -46,7 +46,7 @@ const FeaturedMedia = ({ state, id, className, isHomePage, postId }) => {
         }
       >
         {isHomePage && postId === firstPostId ? (
-          <img
+          <FirstImage
             alt={media.title.rendered}
             src={media.source_url}
             srcSet={srcset}
@@ -79,4 +79,8 @@ const Image = styled(Img)`
   height: auto;
   object-fit: cover;
   width: 100%;
+`;
+
+const FirstImage = styled.img`
+  object-fit: cover;
 `;
