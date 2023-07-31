@@ -1,0 +1,3 @@
+Sitemap: https://blog.djmixoftheweek.com/sitemap.xml
+User-agent:*
+Disallow:
