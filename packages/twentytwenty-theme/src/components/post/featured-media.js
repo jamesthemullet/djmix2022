@@ -13,6 +13,7 @@ import SectionContainer from "../styles/section-container";
  */
 const FeaturedMedia = ({ state, id, className, isHomePage, postId }) => {
   const media = state.source.attachment[id];
+  const caption = media?.caption?.rendered;
   const homePageSizes = isHomePage ? "(max-width: 1024px) 100vw, 400px" : "";
   const homePageSizesFirstImage = isHomePage
     ? "(max-width: 1024px) 100vw, 500px"
@@ -61,6 +62,11 @@ const FeaturedMedia = ({ state, id, className, isHomePage, postId }) => {
             sizes={homePageSizes}
           />
         )}
+        {caption && !isHomePage && (
+          <StyledFigCaption
+            dangerouslySetInnerHTML={{ __html: caption }}
+          ></StyledFigCaption>
+        )}
       </SectionContainer>
     </Figure>
   );
@@ -70,6 +76,25 @@ export default connect(FeaturedMedia);
 
 const Figure = styled.figure`
   position: relative;
+`;
+
+const StyledFigCaption = styled.figcaption`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.5px;
+
+  p {
+    margin: 0;
+  }
 `;
 
 const Image = styled(Img)`
